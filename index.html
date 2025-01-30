@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hiiiii</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9; /* Fundo claro para destacar o conteúdo */
+            padding: 20px;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            min-height: 70vh; /* Aumenta a altura para mais espaçamento */
+            padding: 30px;
+            background: white;
+            box-shadow: 2px 4px 10px #800020;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Adiciona espaçamento entre os elementos do form */
+            width: 100%;
+        }
+        input {
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+        button {
+            padding: 12px;
+            font-size: 16px;
+            background: #800020;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: darkred;
+        }
+        #mensagem {
+            display: none;
+            margin-top: 20px; 
+            color: red; 
+            font-weight: bold;
+        }
+        a {
+            color: #800020; /* Cor vinho */
+            text-decoration: underline;
+            text-decoration-color: #800020;
+        }
+        p {
+            margin-bottom: 15px; /* Maior espaçamento entre parágrafos */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>hiiii teacher claraaa!</h1>
+        <p>thought I was joking?</p>
+        <p>I'd like to ask you for one thing...</p>
+        <form id="meuForm">
+            <input type="text" name="number" placeholder="your best phone number..." required>
+        <p>ops, and another thing too!</p>
+        <input type="text" name="song" placeholder="a song recommendation!" required>
+        <input type="hidden" name="_captcha" value="false">
+        <button type="submit">Send</button>
+        </form>
+        <div id="mensagem">
+            <p>thanks for sending a message! 💌</p>
+            <p>here's my song recommendation for you: <a href="https://www.youtube.com/watch?v=ktBMxkLUIwY">here!</a></p>
+        </div>
+    </div>
+    <script>
+        document.getElementById("meuForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita o redirecionamento
+
+            var formData = new FormData(this);
+            
+            fetch("https://formsubmit.co/gabrieljpe@hotmail.com", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+            if (response.ok) { // ✅ Se a resposta do servidor for OK, mostramos a mensagem de sucesso
+                document.getElementById("mensagem").style.display = "block"; // Exibe a mensagem de sucesso
+                document.getElementById("meuForm").reset(); // Limpa o formulário
+            } else {
+                alert("Erro ao enviar: Verifique seu e-mail no FormSubmit.");
+            }
+        })
+        .catch(error => console.log("Erro:", error));
+        
+        });
+    </script>
+</body>
+</html>
