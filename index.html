@@ -17,46 +17,102 @@
             align-items: center;
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f9f9f9; /* Fundo claro para destacar o conteúdo */
+            background-color: #f9f9f9;
             padding: 20px;
         }
         .container {
-            width: 90%;
-            max-width: 400px;
-            min-height: 70vh; /* Aumenta a altura para mais espaçamento */
+            width: 50vw; 
+            max-width: 500px;
+            min-height: 50vh;
             padding: 30px;
-            background: #f9f9f9;
-            box-shadow: 2px 4px 10px pink;
-            border-radius: 10px;
+            background: white;
+            box-shadow: 4px 6px 12px pink;
+            border-radius: 15px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
-        form {
+        h1 {
+            margin-bottom: 20px;
+        }
+        h2{
+            margin-bottom: 20px;
+        }
+        .buttons {
             display: flex;
-            flex-direction: column;
-            gap: 15px; /* Adiciona espaçamento entre os elementos do form */
-            width: 100%;
+            justify-content: center; /* Garante alinhamento correto */
+            gap: 20px; /* Mantém espaçamento */
+            margin-top: 20px;
         }
-        input {
-            padding: 12px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-        }
+
         button {
-            padding: 12px;
-            font-size: 16px;
-            background: black;
-            color: white;
+            padding: 12px 20px;
+            font-size: 18px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: 0.3s;
+            min-width: 120px; /* Garante que os botões tenham um tamanho adequado */
+            text-align: center;
         }
-        button:hover {
-            background: black;
+
+        #yes {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #yes:hover {
+            background-color: #218838;
+        }
+
+        #no {
+            background-color: #dc3545;
+            color: white;
+            position: relative; /* Evita que inicie desalinhado */
+        }
+        #form-container {
+            display: none; /* Oculto inicialmente */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 15px;
+        }
+        label {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        #send {
+            background-color: pink;
+            color: white;
+            width: 100%;
+        }
+        #send:hover {
+            background-color: red;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
         #mensagem {
             display: none;
@@ -64,51 +120,91 @@
             color: pink; 
             font-weight: bold;
         }
-        a {
-            color: #800020; /* Cor vinho */
-            text-decoration: underline;
-            text-decoration-color: #800020;
-        }
-        p {
-            margin-bottom: 15px; /* Maior espaçamento entre parágrafos */
-        }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>oiiii ana</h1>
-        <p>geleia aí embaixo:</p>
-        <form id="meuForm">
-            <input type="text" name="number" placeholder="seu zap..." required>
-        <input type="text" name="song" placeholder="uma música..." required>
-        <input type="hidden" name="_captcha" value="false">
-        <button type="submit">enviar</button>
-        </form>
+        <div id="content">
+            <h1>oiii ana!!</h1>
+            <h1>tenta falar não pra mim.</h1>
+            <div class="buttons">
+                <button id="yes">sim!!!!!</button>
+                <button id="no">não...</button>
+            </div>
+        </div>
+        <!-- Formulário que aparece ao clicar em "Sim" -->
+        <div id="form-container">
+            <form id="dateForm">
+                <h2>geleie aí embaixo a sua preferência:</h2>
+                <div class="radio-group">
+                    <label><input type="radio" name="place" value="cerveja"> cervejinha ainda é uma boa! </label>
+                    <label><input type="radio" name="place" value="sorvete"> sorvete! </label>
+                    <label><input type="radio" name="place" value="parque"> cafézinho (quente, obviamente) </label>
+                </div>
+                <label>mídia vei, que dia?? (OBS: gabriel tem problemas em dias úteis (talvez sextas nem tanto))</label>
+                <input type="date" name="date" required>
+                <input type="hidden" name="_captcha" value="false">
+                <button type="submit" id="send">enviar</button>
+            </form>
+        </div>
         <div id="mensagem">
-            <p>botou fé! 💌</p>
-            <p>minha recomendação pra vc: <a href="https://open.spotify.com/track/3FwuafVIkkImCgW86F7UpM?si=mkkgPyMJQ3mqzOaCKa8ATA">aqui!</a></p>
+            <p>💌</p>
         </div>
     </div>
+
     <script>
-        document.getElementById("meuForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Evita o redirecionamento
+        const noButton = document.getElementById("no");
+        const yesButton = document.getElementById("yes");
+        const formContainer = document.getElementById("form-container");
+        const content = document.getElementById("content");
+
+
+        // Faz o botão "Não" fugir do mouse
+        noButton.addEventListener("mouseenter", function () {
+            const container = document.querySelector(".container");
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            
+            const newX = Math.random() * (containerWidth - 100);
+            const newY = Math.random() * (containerHeight - 50);
+            
+            noButton.style.transform = `translate(${newX}px, ${newY}px)`;
+        });
+
+         // Mostrar o formulário ao clicar no botão "Sim" e esconder a pergunta
+         yesButton.addEventListener("click", function () {
+            content.style.display = "none"; // Esconde o texto e os botões
+            formContainer.style.display = "flex"; // Mostra o formulário
+        });
+
+        // Envio do formulário
+        document.getElementById("dateForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+             // Capturar valor selecionado (agora usando radio buttons)
+             const selectedPlace = document.querySelector('input[name="place"]:checked');
+            const selectedDate = document.querySelector('input[name="date"]').value;
+
+            if (!selectedPlace) {
+                alert("escolhe um por favor kkkk");
+                return;
+            }
 
             var formData = new FormData(this);
-            
+
             fetch("https://formsubmit.co/gabrieljpe@hotmail.com", {
                 method: "POST",
                 body: formData
             })
-            .then(response => {
-            if (response.ok) { // ✅ Se a resposta do servidor for OK, mostramos a mensagem de sucesso
-                document.getElementById("mensagem").style.display = "block"; // Exibe a mensagem de sucesso
-                document.getElementById("meuForm").reset(); // Limpa o formulário
-            } else {
-                alert("Erro ao enviar: Verifique seu e-mail no FormSubmit.");
-            }
-        })
-        .catch(error => console.log("Erro:", error));
-        
+            .then(response => response.text())  // Converte a resposta para texto
+            .then(data => {
+                console.log("Resposta do servidor:", data);  // Exibe a resposta no console
+                alert("formulário enviado com sucesso! 📩");
+                document.getElementById("form-container").style.display = "none";
+                document.getElementById("mensagem").style.display = "block";
+            })
+            .catch(error => console.log("Erro:", error));
         });
     </script>
 </body>
