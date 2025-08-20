@@ -138,13 +138,13 @@
             }
 
             .buttons {
-                flex-direction: column;
+                flex-direction: row;
                 gap: 10px;
                 width: 100%;
             }
 
             button {
-                width: 100%;
+                width: 40%;
                 font-size: 1rem;
                 padding: 10px;
             }
@@ -176,7 +176,7 @@
                 <h2>geleie aí embaixo a sua preferência:</h2>
                 <div class="radio-group">
                     <label><input type="radio" name="place" value="cerveja"> cervejinha ainda é uma boa! </label>
-                    <label><input type="radio" name="place" value="sorvete"> sorvete! </label>
+                    <label><input type="radio" name="place" value="sorvete"> sorvete! (estou light) </label>
                     <label><input type="radio" name="place" value="cafe"> cafézinho (quente, obviamente) </label>
                 </div>
                 <label>mídia vei, que dia?? (OBS: gabriel tem issues com dias úteis (mas sexta até que dá!))</label>
@@ -197,16 +197,19 @@
         const content = document.getElementById("content");
 
 
-        // Faz o botão "Não" fugir do mouse
         noButton.addEventListener("mouseenter", function () {
-            const container = document.querySelector(".container");
-            const containerWidth = container.clientWidth;
-            const containerHeight = container.clientHeight;
-            
-            const newX = Math.random() * (containerWidth - 100);
-            const newY = Math.random() * (containerHeight - 50);
-            
-            noButton.style.transform = `translate(${newX}px, ${newY}px)`;
+                const container = document.querySelector(".container");
+                const containerRect = container.getBoundingClientRect();
+                const btnWidth = noButton.offsetWidth;
+                const btnHeight = noButton.offsetHeight;
+
+                const maxX = containerRect.width - btnWidth - 20;
+                const maxY = containerRect.height - btnHeight - 20;
+
+                const newX = Math.max(0, Math.floor(Math.random() * maxX));
+                const newY = Math.max(0, Math.floor(Math.random() * maxY));
+
+                noButton.style.transform = `translate(${newX}px, ${newY}px)`;
         });
 
          // Mostrar o formulário ao clicar no botão "Sim" e esconder a pergunta
