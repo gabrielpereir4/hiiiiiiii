@@ -156,6 +156,28 @@
             h1, h2 {
                 font-size: 20px;
             }
+            #form-container form {
+                width: 100%;
+            }
+
+            .radio-group {
+                width: 100%;
+                gap: 10px;
+            }
+
+            .radio-group label {
+                width: 100%;
+                text-align: left;
+            }
+
+            #form-container label {
+                width: 100%;
+                text-align: left;
+            }
+
+            #form-container input[type="date"] {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -198,6 +220,20 @@
 
 
         noButton.addEventListener("mouseenter", function () {
+                const container = document.querySelector(".container");
+                const containerRect = container.getBoundingClientRect();
+                const btnWidth = noButton.offsetWidth;
+                const btnHeight = noButton.offsetHeight;
+
+                const maxX = containerRect.width - btnWidth - 20;
+                const maxY = containerRect.height - btnHeight - 20;
+
+                const newX = Math.max(0, Math.floor(Math.random() * maxX));
+                const newY = Math.max(0, Math.floor(Math.random() * maxY));
+
+                noButton.style.transform = `translate(${newX}px, ${newY}px)`;
+        });
+            noButton.addEventListener("touchstart",function () {
                 const container = document.querySelector(".container");
                 const containerRect = container.getBoundingClientRect();
                 const btnWidth = noButton.offsetWidth;
